@@ -49,6 +49,11 @@ data:
         location /rmt.crt {
             alias /etc/rmt/ssl/rmt-ca.crt;
         }
+
+        # For livenessProbe
+        location /index.html {
+            alias /srv/www/htdocs/index.html;
+        }
     }
   rmt-server-https.conf: |
     upstream rmt {
@@ -99,6 +104,11 @@ data:
         # An alias to RMT CA certificate, so that it can be downloaded to client machines.
         location /rmt.crt {
             alias /etc/rmt/ssl/rmt-ca.crt;
+        }
+
+        # For livenessProbe
+        location /index.html {
+            alias /srv/www/htdocs/index.html;
         }
     }
   
