@@ -26,7 +26,7 @@ data:
             # RMT serves /repo/repoindex.xml over HTTP and HTTPS by default.
             # If want to block it over HTTP, you can comment out the following try_files line and uncomment the return
             # statement to redirect all HTTP requests to HTTPS.
-            try_files $uri/index.html $uri.html $uri @rmt_app;
+            try_files $uri @rmt_app;
             # return 301 https://$host$request_uri;
         }
 
