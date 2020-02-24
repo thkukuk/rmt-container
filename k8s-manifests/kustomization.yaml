@@ -1,0 +1,9 @@
+secretGenerator:
+- name: rmt-mariadb-root-pass
+  literals:
+  - password=root
+- name: rmt-mariadb-rmt-pass
+  literals:
+  - password=rmt
+resources:
+- mariadb.yaml

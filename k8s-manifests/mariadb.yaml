@@ -1,0 +1,78 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: rmt-mariadb-svc
+  labels:
+    app: rmt-server
+spec:
+  ports:
+    - port: 3306
+  selector:
+    app: rmt-server
+  clusterIP: None
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: rmt-mariadb-pv-claim
+  annotations:
+    volume.beta.kubernetes.io/storage-class: "managed-nfs-storage"
+  labels:
+    app: rmt-server
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rmt-mariadb
+  labels:
+    app: rmt-server
+spec:
+  selector:
+    matchLabels:
+      app: rmt-server
+      tier: mariadb
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: rmt-server
+        tier: mariadb
+    spec:
+      containers:
+      - image: registry.opensuse.org/opensuse/mariadb:latest
+        name: mariadb
+        env:
+        - name: MYSQL_DATABASE
+          value: rmt
+        - name: MYSQL_USER
+          value: rmt
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: rmt-mariadb-rmt-pass
+              key: password
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: rmt-mariadb-root-pass
+              key: password
+        #livenessProbe:
+        #  tcpSocket:
+        #    port: 3306
+        ports:
+        - containerPort: 3306
+          name: mariadb
+        volumeMounts:
+        - name: rmt-mariadb-persistent-storage
+          mountPath: /var/lib/mysql
+      volumes:
+      - name: rmt-mariadb-persistent-storage
+        persistentVolumeClaim:
+          claimName: rmt-mariadb-pv-claim
