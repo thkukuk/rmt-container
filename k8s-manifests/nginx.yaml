@@ -32,6 +32,9 @@ spec:
       - name: secret-volume
         secret:
           secretName: rmt-nginx-secret
+      - name: rmt-ca-volume
+        configMap:
+          name: rmt-ca-configmap
       - name: vhosts-configmap-volume
         configMap:
           name: rmt-nginx-vhosts-configmap
@@ -53,6 +56,8 @@ spec:
         volumeMounts:
         - mountPath: /etc/rmt/ssl
           name: secret-volume
+        - mountPath: /etc/rmt/ca
+          name: rmt-ca-volume
         - mountPath: /etc/nginx/vhosts.d
           name: vhosts-configmap-volume
         - mountPath: /usr/share/rmt
