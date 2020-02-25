@@ -1,11 +1,24 @@
 #!/bin/sh
 
 CERTDIR=certs
-KEY=${CERTDIR}/rmt-server.key
-CERT=${CERTDIR}/rmt-server.crt
+LANG=C
 
 rm -rf ${CERTDIR}
-mkdir ${CERTDIR}
-openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout ${KEY} -out ${CERT} -subj "/CN=rmt-nginx-svc/O=rmt-nginx-svc"
+mkdir -p ${CERTDIR}
 
-kubectl create secret tls rmt-nginx-secret --key ${KEY} --cert ${CERT}
+certstrap --depot-path ${CERTDIR} init --common-name "rmt-ca" --passphrase ""
+
+if [ -n "$*" ]; then
+    HOSTNAMES="$@"
+else
+    HOSTNAMES="localhost"
+fi
+HOSTNAMES="rmt-nginx-svc ${HOSTNAMES}"
+
+certstrap --depot-path ${CERTDIR} request-cert -domain ${HOSTNAMES} --passphrase "" --common-name rmt-server
+certstrap --depot-path ${CERTDIR} sign rmt-server --CA "rmt-ca"
+
+kubectl delete secret rmt-nginx-secret
+kubectl create secret tls rmt-nginx-secret --key ${CERTDIR}/rmt-server.key --cert ${CERTDIR}/rmt-server.crt
+kubectl delete configmap rmt-ca-configmap
+kubectl create configmap rmt-ca-configmap --from-file=${CERTDIR}/rmt-ca.crt
