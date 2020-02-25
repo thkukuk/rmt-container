@@ -5,16 +5,15 @@ metadata:
   labels:
     app: rmt-server
 spec:
-  type: NodePort
+  type: LoadBalancer
+  loadBalancerIP: 10.162.233.59
   ports:
   - name: http
     port: 80
     protocol: TCP
-    nodePort: 30080
   - name: https
     port: 443
     protocol: TCP
-    nodePort: 30443
   selector:
     app: rmt-server
 ---
