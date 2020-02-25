@@ -5,8 +5,9 @@ secretGenerator:
 - name: rmt-mariadb-rmt-pass
   literals:
   - password=rmt
-- name: rmt-scc-password
+- name: rmt-scc-account
   literals:
+  - username=
   - password=
 resources:
 - mariadb.yaml

@@ -50,11 +50,14 @@ spec:
               name: rmt-mariadb-rmt-pass
               key: password
         - name: SCC_USERNAME
-          value: ""
+          valueFrom:
+            secretKeyRef:
+              name: rmt-scc-account
+              key: username
         - name: SCC_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: rmt-scc-password
+              name: rmt-scc-account
               key: password
         ports:
         - containerPort: 4224
