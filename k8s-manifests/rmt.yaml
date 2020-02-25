@@ -62,3 +62,18 @@ spec:
         volumeMounts:
         - name: rmt-persistent-storage
           mountPath: /var/lib/rmt
+      initContainers:
+      - name: init-rmt-server
+        image: registry.opensuse.org/home/kukuk/container/container/opensuse/mariadb-client:latest
+        command: ['sh', '-c', 'until mysqladmin ping -u ${MYSQL_USER} -p${MYSQL_PASSWORD} -h ${MYSQL_HOST} --silent; do echo waiting for mariadb; sleep 2; done;']
+        env:
+        - name: MYSQL_HOST
+          value: rmt-mariadb-svc
+        - name: MYSQL_USER
+          value: rmt
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: rmt-mariadb-rmt-pass
+              key: password
+
