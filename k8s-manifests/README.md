@@ -1,7 +1,8 @@
 # Deploy RMT on kubernetes
 
-RMT consists of three containers:
-* MariaDB
+RMT consists of four containers:
+* MariaDB server
+* MariaDB client utilities
 * Nginx
 * RMT
 
@@ -23,11 +24,12 @@ them to kubernetes.
 
 ## Configuration
 
-`kustomize` is used to configure the deployment. Checkout the git repository:
-`git clone https://github.com/thkukuk/rmt-container`
+**kustomize** is used to configure the deployment. Checkout the git repository:
+`git clone https://github.com/thkukuk/rmt-container` to get the current
+manifest.
 
-Inside ``rmt-container`` create a new directory: ``overlay`` with the
-following files:
+To configure the RMT deployment create a new directory _overlay_ inside
+_rmt-container_ with the following files:
 
 ### kustomization.yaml
 ```
@@ -51,7 +53,7 @@ Replace UCXXX with your SCC username and xxxxxxxxxx with your SCC password.
 ### patch_LoadBalancerIP.yaml
 
 Here a preferred Loadbalancer IP can be specified. If not wanted, remote
-the entry from ``kustomization.yaml``:
+the entry from _kustomization.yaml_:
 
 ```
 apiVersion: v1
