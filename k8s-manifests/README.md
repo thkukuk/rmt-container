@@ -28,8 +28,8 @@ them to kubernetes.
 `git clone https://github.com/thkukuk/rmt-container` to get the current
 manifest.
 
-To configure the RMT deployment create a new directory _overlay_ inside
-_rmt-container_ with the following files:
+To configure the RMT deployment create a new directory _overlay_ (or any other
+meaningful name) inside _rmt-container_ with the following files:
 
 ### kustomization.yaml
 ```
@@ -53,7 +53,8 @@ Replace UCXXX with your SCC username and xxxxxxxxxx with your SCC password.
 ### patch_LoadBalancerIP.yaml
 
 Here a preferred Loadbalancer IP can be specified. If not wanted, remote
-the entry from _kustomization.yaml_:
+the entry from _kustomization.yaml_. In the same way, the LoadBalancer
+could be replaced with NodePort.
 
 ```
 apiVersion: v1
