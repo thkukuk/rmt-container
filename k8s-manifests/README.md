@@ -18,12 +18,10 @@ The following tools are required:
 * kubectl
 
 ## SSL certificates
-
 ``create-certs.sh`` creates the certificates for https and uploads
 them to kubernetes.
 
 ## Configuration
-
 **kustomize** is used to configure the deployment. Checkout the git repository:
 `git clone https://github.com/thkukuk/rmt-container` to get the current
 manifest.
@@ -51,7 +49,6 @@ patchesStrategicMerge:
 Replace UCXXX with your SCC username and xxxxxxxxxx with your SCC password.
 
 ### patch_LoadBalancerIP.yaml
-
 Here a preferred Loadbalancer IP can be specified. If not wanted, remote
 the entry from _kustomization.yaml_. In the same way, the LoadBalancer
 could be replaced with NodePort.
@@ -68,7 +65,6 @@ spec:
 Replace XX.XXX.XXX.XX with the IP under which Nginx/RMT should be reacheable.
 
 ### patch_PVC.yaml
-
 Change the required persisent storage size to match your needs:
 
 ```
@@ -92,7 +88,6 @@ spec:
 ```
 
 ## Deployment
-
 In case the configuration was adjusted:
 ```
 kustomize build overlay | kubectl apply -f -
@@ -102,3 +97,11 @@ In case the configuration was not adjusted:
 ```
 kustomize build k8s-manifests | kubectl apply -f -
 ```
+
+## RMT Configuration
+To configure RMT, you need to exec into the rmt-server container and
+run `rmt-cli` to sync, enable and mirror products and repositories.
+
+## Missing
+There are no jobs running regular the sync and mirror processes.
+
