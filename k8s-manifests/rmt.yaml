@@ -34,6 +34,8 @@ spec:
       - name: rmt-persistent-storage
         persistentVolumeClaim:
           claimName: rmt-pv-claim
+      - name: rmt-tmp-volume
+        emptyDir: {}
       containers:
       - image: registry.opensuse.org/home/kukuk/container/container/opensuse/rmt-server:latest
         name: rmt
@@ -65,6 +67,8 @@ spec:
         volumeMounts:
         - name: rmt-persistent-storage
           mountPath: /var/lib/rmt
+        - name: rmt-tmp-volume
+          mountPath: /usr/share/rmt/tmp
       initContainers:
       - name: init-rmt-server
         image: registry.opensuse.org/home/kukuk/container/container/opensuse/mariadb-client:latest
