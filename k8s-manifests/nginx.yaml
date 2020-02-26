@@ -6,7 +6,6 @@ metadata:
     app: rmt-server
 spec:
   type: LoadBalancer
-  loadBalancerIP: 10.162.233.59
   ports:
   - name: http
     port: 80
