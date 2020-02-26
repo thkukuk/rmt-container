@@ -18,8 +18,11 @@ The following tools are required:
 * kubectl
 
 ## SSL certificates
-``create-certs.sh`` creates the certificates for https and uploads
-them to kubernetes.
+``create-certs.sh`` creates the certificates for https if they don't exist
+already and uploads them to kubernetes.
+The environment variable _CERTDIR_ can point to a directory, which contains
+already the certificates or where they should be stored. By default _certs_
+in the local directory is used.
 
 ## Configuration
 **kustomize** is used to configure the deployment. Checkout the git repository:
