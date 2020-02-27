@@ -4,11 +4,15 @@ metadata:
   name: rmt-nginx-vhosts-configmap
 data:
   rmt-server-http.conf: |
+    upstream rmt {
+        server rmt-server-svc:4224;
+    }
+
     server {
         listen 80   default;
         server_name rmt;
-        access_log  /var/log/nginx/rmt_http_access.log;
-        error_log   /var/log/nginx/rmt_http_error.log;
+        access_log  /var/log/nginx/access.log;
+        error_log   /var/log/nginx/error.log;
         root        /usr/share/rmt/public;
 
         location / {
@@ -56,16 +60,12 @@ data:
         }
     }
   rmt-server-https.conf: |
-    upstream rmt {
-        server 127.0.0.1:4224;
-    }
-
     server {
         listen 443   ssl;
         server_name rmt;
 
-        access_log  /var/log/nginx/rmt_https_access.log;
-        error_log   /var/log/nginx/rmt_https_error.log;
+        access_log  /var/log/nginx/access.log;
+        error_log   /var/log/nginx/error.log;
         root        /usr/share/rmt/public;
 
         ssl_certificate     /etc/rmt/ssl/tls.crt;
