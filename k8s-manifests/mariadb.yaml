@@ -46,7 +46,7 @@ spec:
         tier: mariadb
     spec:
       containers:
-      - image: registry.opensuse.org/devel/kubic/containers/container/opensuse/mariadb:latest
+      - image: registry.opensuse.org/opensuse/mariadb:latest
         name: mariadb
         env:
         - name: MYSQL_DATABASE
