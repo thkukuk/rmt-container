@@ -14,4 +14,4 @@ resources:
 - rmt-pv-claim.yaml
 - nginx-vhosts-configmap.yaml
 - nginx.yaml
-- rmt.yaml
+- rmt-server.yaml
