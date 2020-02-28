@@ -9,6 +9,7 @@ spec:
     - port: 3306
   selector:
     app: rmt-server
+    tier: mariadb
   clusterIP: None
 ---
 apiVersion: v1
@@ -19,6 +20,7 @@ metadata:
     volume.beta.kubernetes.io/storage-class: "managed-nfs-storage"
   labels:
     app: rmt-server
+    tier: mariadb
 spec:
   accessModes:
     - ReadWriteOnce
