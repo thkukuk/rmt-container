@@ -9,6 +9,7 @@ spec:
     - port: 4224
   selector:
     app: rmt-server
+    tier: server
   clusterIP: None
 ---
 apiVersion: apps/v1
