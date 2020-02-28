@@ -71,7 +71,7 @@ spec:
           mountPath: /usr/share/rmt/tmp
       initContainers:
       - name: init-rmt-server
-        image: registry.opensuse.org/home/kukuk/container/container/opensuse/mariadb-client:latest
+        image: registry.opensuse.org/opensuse/mariadb-client:latest
         command: ['sh', '-c', 'until mysqladmin ping -u ${MYSQL_USER} -p${MYSQL_PASSWORD} -h ${MYSQL_HOST} --silent; do echo waiting for mariadb; sleep 2; done;']
         env:
         - name: MYSQL_HOST
