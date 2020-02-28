@@ -7,6 +7,8 @@ mkdir -p ${CERTDIR}
 
 if [ ! -e ${CERTDIR}/rmt-ca.crt ]; then
 	certstrap --depot-path ${CERTDIR} init --common-name "rmt-ca" --passphrase ""
+else
+	echo "Found existing rmt-ca..."
 fi
 
 if [ ! -e ${CERTDIR}/rmt-server.crt ]; then
@@ -19,6 +21,8 @@ if [ ! -e ${CERTDIR}/rmt-server.crt ]; then
 
 	certstrap --depot-path ${CERTDIR} request-cert -domain ${HOSTNAMES} --passphrase "" --common-name rmt-server
 	certstrap --depot-path ${CERTDIR} sign rmt-server --CA "rmt-ca"
+else
+	echo "Found existing rmt-server cert..."
 fi
 
 kubectl delete secret rmt-nginx-secret
