@@ -17,6 +17,7 @@ spec:
     protocol: TCP
   selector:
     app: rmt-server
+    tier: nginx
 ---
 apiVersion: v1
 kind: ReplicationController
@@ -28,6 +29,7 @@ spec:
     metadata:
       labels:
         app: rmt-server
+        tier: nginx
     spec:
       volumes:
       - name: secret-volume
