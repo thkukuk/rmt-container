@@ -9,9 +9,11 @@ spec:
   ports:
   - name: http
     port: 80
+    targetPort: 80
     protocol: TCP
   - name: https
     port: 443
+    targetPort: 443
     protocol: TCP
   selector:
     app: rmt-server
@@ -40,9 +42,13 @@ spec:
       - name: rmt-persistent-storage
         persistentVolumeClaim:
           claimName: rmt-pv-claim
+      initContainers:
+      - name: init-rmt-server
+        image: registry.opensuse.org/opensuse/busybox:latest
+        command: ['sh', '-c', 'until nslookup rmt-server-svc; do echo waiting for rmt-server; sleep 2; done;']
       containers:
       - name: rmt-nginx
-        image: registry.opensuse.org/devel/kubic/containers/container/opensuse/nginx:latest
+        image: registry.opensuse.org/opensuse/nginx:latest
         ports:
         - containerPort: 443
         - containerPort: 80
