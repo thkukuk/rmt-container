@@ -38,6 +38,7 @@ spec:
         emptyDir: {}
       containers:
       - image: registry.opensuse.org/home/kukuk/container/container/opensuse/rmt-server:latest
+        imagePullPolicy: Always
         name: rmt
         env:
         - name: MYSQL_HOST
@@ -72,6 +73,7 @@ spec:
       initContainers:
       - name: init-rmt-server
         image: registry.opensuse.org/home/kukuk/container/container/opensuse/mariadb-client:latest
+        imagePullPolicy: Always
         command: ['sh', '-c', 'until mysqladmin ping -u ${MYSQL_USER} -p${MYSQL_PASSWORD} -h ${MYSQL_HOST} --silent; do echo waiting for mariadb; sleep 2; done;']
         env:
         - name: MYSQL_HOST

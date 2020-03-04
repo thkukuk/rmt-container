@@ -47,10 +47,12 @@ spec:
       initContainers:
       - name: init-rmt-server
         image: registry.opensuse.org/opensuse/busybox:latest
+        imagePullPolicy: Always
         command: ['sh', '-c', 'until nslookup rmt-server-svc; do echo waiting for rmt-server; sleep 2; done;']
       containers:
       - name: rmt-nginx
         image: registry.opensuse.org/opensuse/nginx:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 443
         - containerPort: 80

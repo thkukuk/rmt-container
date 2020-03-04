@@ -50,6 +50,7 @@ spec:
       containers:
       - image: registry.opensuse.org/opensuse/mariadb:latest
         name: mariadb
+        imagePullPolicy: Always
         env:
         - name: MYSQL_DATABASE
           value: rmt
