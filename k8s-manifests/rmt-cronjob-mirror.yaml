@@ -1,0 +1,21 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: rmt-mirror-cronjob
+  labels:
+    app: rmt-server
+    tier: rmt-mirror-cronjob
+spec:
+  schedule: "30 2 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: rmt-mirror-cronjob
+            image: registry.opensuse.org/home/kukuk/container/container/opensuse/rmt-server:latest
+            imagePullPolicy: Always
+            args:
+            - /usr/share/rmt/bin/rmt-cli
+            - mirror
+          restartPolicy: OnFailure

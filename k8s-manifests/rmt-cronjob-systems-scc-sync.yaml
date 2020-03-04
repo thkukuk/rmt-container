@@ -1,0 +1,22 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: rmt-systems-scc-sync-cronjob
+  labels:
+    app: rmt-server
+    tier: rmt-systems-scc-sync-cronjob
+spec:
+  schedule: "0 4 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: rmt-systems-scc-sync-cronjob
+            image: registry.opensuse.org/home/kukuk/container/container/opensuse/rmt-server:latest
+            imagePullPolicy: Always
+            args:
+            - /usr/share/rmt/bin/rmt-cli
+            - systems
+            - scc-sync
+          restartPolicy: OnFailure
