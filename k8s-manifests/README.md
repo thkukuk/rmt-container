@@ -101,10 +101,17 @@ In case the configuration was not adjusted:
 kustomize build k8s-manifests | kubectl apply -f -
 ```
 
+## Cronjobs for RMT sync jobs
+There are three cronjobs for RMT:
+* rmt-cronjob-sync.yaml - get latest product informations from SCC
+* rmt-cronjob-mirror.yaml - mirror enabled repositories once a night
+* rmt-cronjob-systems-scc-sync.yaml - forward registered systems data to SCC
+
+The needed ones should be enabled with
+```
+kubectl apply -f k8s-manifests/rmt-cronjob-{sync,mirror,systems-scc-sync}.yaml
+```
+
 ## RMT Configuration
 To configure RMT, you need to exec into the rmt-server container and
 run `rmt-cli` to sync, enable and mirror products and repositories.
-
-## Missing
-There are no jobs running regular the sync and mirror processes.
-
