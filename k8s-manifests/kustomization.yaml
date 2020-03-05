@@ -15,3 +15,4 @@ resources:
 - nginx-vhosts-configmap.yaml
 - nginx.yaml
 - rmt-server.yaml
+- rmt-cronjob-mirror.yaml
