@@ -12,7 +12,7 @@ spec:
       template:
         spec:
           restartPolicy: OnFailure
-	  volumes:
+          volumes:
           - name: rmt-persistent-storage
             persistentVolumeClaim:
               claimName: rmt-pv-claim
@@ -25,7 +25,7 @@ spec:
             - mirror
             env:
             - name: MYSQL_HOST
-	      value: rmt-mariadb-svc
+              value: rmt-mariadb-svc
             - name: MYSQL_DATABASE
               value: rmt
             - name: MYSQL_USER
