@@ -19,12 +19,20 @@ spec:
     app: rmt-server
     tier: nginx
 ---
-apiVersion: v1
-kind: ReplicationController
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: rmt-nginx
+  labels:
+    app: rmt-server
 spec:
+  selector:
+    matchLabels:
+      app: rmt-server
+      tier: nginx
   replicas: 1
+  strategy:
+    type: RollingUpdate
   template:
     metadata:
       labels:
