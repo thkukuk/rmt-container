@@ -24,7 +24,7 @@ spec:
       app: rmt-server
       tier: server
   strategy:
-    type: Recreate
+    type: RollingUpdate
   template:
     metadata:
       labels:
