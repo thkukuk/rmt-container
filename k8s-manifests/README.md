@@ -107,10 +107,9 @@ There are three cronjobs for RMT:
 * rmt-cronjob-mirror.yaml - mirror enabled repositories once a night
 * rmt-cronjob-systems-scc-sync.yaml - forward registered systems data to SCC
 
-The needed ones should be enabled with
-```
-kubectl apply -f k8s-manifests/rmt-cronjob-{sync,mirror,systems-scc-sync}.yaml
-```
+*rmt-cronjob-sync.yaml* and *rmt-cronjob-mirror.yaml* are enabled
+automatically by *kustomize*. *rmt-cront-systems-scc-sync.yaml* needs to
+be added to *kustomization.yaml* if it should be executed every night.
 
 ## RMT Configuration
 To configure RMT, you need to exec into the rmt-server container and

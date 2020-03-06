@@ -11,6 +11,11 @@ spec:
     spec:
       template:
         spec:
+          restartPolicy: OnFailure
+          volumes:
+          - name: rmt-persistent-storage
+            persistentVolumeClaim:
+              claimName: rmt-pv-claim
           containers:
           - name: rmt-systems-scc-sync-cronjob
             image: registry.opensuse.org/home/kukuk/container/container/opensuse/rmt-server:latest
@@ -19,4 +24,18 @@ spec:
             - /usr/share/rmt/bin/rmt-cli
             - systems
             - scc-sync
-          restartPolicy: OnFailure
+            env:
+            - name: MYSQL_HOST
+              value: rmt-mariadb-svc
+            - name: MYSQL_DATABASE
+              value: rmt
+            - name: MYSQL_USER
+              value: rmt
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: rmt-mariadb-rmt-pass
+                  key: password
+            volumeMounts:
+            - name: rmt-persistent-storage
+              mountPath: /var/lib/rmt
