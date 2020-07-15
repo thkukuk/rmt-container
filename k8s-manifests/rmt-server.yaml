@@ -38,7 +38,7 @@ spec:
       - name: rmt-tmp-volume
         emptyDir: {}
       containers:
-      - image: registry.opensuse.org/home/kukuk/container/container/opensuse/rmt-server:latest
+      - image: registry.opensuse.org/opensuse/rmt-server:latest
         name: rmt
         imagePullPolicy: Always
         env:
