@@ -35,6 +35,16 @@ spec:
                 secretKeyRef:
                   name: rmt-mariadb-rmt-pass
                   key: password
+            - name: SCC_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: rmt-scc-account
+                  key: username
+            - name: SCC_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: rmt-scc-account
+                  key: password
             volumeMounts:
             - name: rmt-persistent-storage
               mountPath: /var/lib/rmt
